@@ -31,11 +31,101 @@ Publish the website in the given URL.
 
 ## PROGRAM :
 
+```
+math.html
+
+<html>
+<head>
+    <style>
+        body 
+        {
+            font-family: Arial, sans-serif;
+            background-color:rgb(97, 100, 171);
+            color: rgb(235, 243, 9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .box 
+        {
+            background-color:rgb(9, 164, 247); 
+            border-radius: 8px;
+            box-shadow:rgb(12, 169, 91); 
+            padding: 20px;
+            width: 300px;
+        }
+        h1
+        {
+            color:rgb(18, 1, 255);
+            text-align: center;
+            padding-top: 20px;
+        }
+        </style>
+</head>
+<body>
+    <div class="edge">
+    <div class="box">
+    <h1>VINODINI R (212223040244)</h1>
+    <h2>SURFACE AREA OF RIGHT CYLINDER</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="formelt">
+        Radius: <input type="text" name="radius" value="{{r}}"></input><br/>
+    </div>
+    <div class="formelt">
+        Height: <input type="text" name="height" value="{{h}}"></input><br/></div>
+    <div class="formelt">
+    <input type="submit" value="Calculate"></input><br/></div>
+    <div class="formelt">
+        Area: <input type="text" name="area" value="{{area}}"></input><br/>
+    </div>
+</form></div>
+</div>
+</body>
+</html>
+
+views.py
+
+from django.shortcuts import render
+def surfacearea(request):
+    context={}
+    context['area'] = "0"
+    context['r'] = "0"
+    context['h'] = "0"
+    if request.method == 'POST':
+        print("POST method is used")
+        r = request.POST.get('radius','0')
+        h = request.POST.get('height','0')
+        print('request=',request)
+        print('Radius=',r)
+        print('Height=',h)
+        area = 2*3.14*int(r)*int(h)+2*3.14*int(r)*int(r)
+        context['area'] = area
+        context['r'] = r
+        context['h'] = h
+        print('Area=',area)
+    return render(request,'mathapp/math.html',context)
+
+
+urls.py
+
+from django.contrib import admin
+from django.urls import path
+from mathapp import views
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('surfaceareaofrightcylinder/',views.surfacearea,name="surfaceareaofrightcylinder"),
+    path('',views.surfacearea,name="surfaceareaofrightcylinderroot")
+]
+```
 
 ## SERVER SIDE PROCESSING:
+![Screenshot 2024-04-08 134607](https://github.com/selvasachein/MathServer/assets/130828943/a26101c5-5ec1-4d61-b4e4-1fedefb6f43d)
 
 
 ## HOMEPAGE:
+![Screenshot 2024-04-08 134632](https://github.com/selvasachein/MathServer/assets/130828943/072cb308-6f11-48a7-8ea2-3bb45be67125)
 
 
 ## RESULT:
